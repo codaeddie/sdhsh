@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<!--
+  sdhsh — Nada Benny Real Estate (San Diego Home Sweet Home)
+  Standalone single-file site. All CSS and JS inline.
+  Sections: Hero (video), Gallery Grid, Agent Bio, Newsletter Signup,
+  Neighborhoods, Home Valuation CTA, Contact Form, Stats, Testimonials,
+  CTA Banner, Footer, Contact Modal, Mobile Menu.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nada Benny | San Diego CA REALTOR</title>
+  <meta name="description" content="Nada Benny — Your key to all things Real Estate in sunny San Diego! CA DRE# 01938540. Realty Executives Dillon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS Custom Properties (Design Spec §12) ===== */
+    :root {
+      --color-accent-red: #E7191F;
+      --color-navy: #004475;
+      --color-black: #1A1A1A;
+      --color-gray-dark: #818181;
+      --color-gray-mid: #848484;
+      --color-gray-light: #999999;
+      --color-gray-border: #CCCCCC;
+      --color-beige: #EEEDE9;
+      --color-white: #FFFFFF;
+      --font-display: 'Bodoni Moda', serif;
+      --font-body: 'Roboto Flex', sans-serif;
+      --section-pad-y: 80px;
+      --section-pad-y-mobile: 40px;
+      --card-gap: 20px;
+      --container-max: 1200px;
+      --transition-fast: 0.3s ease;
+      --transition-med: 0.4s ease;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-black);
+      background: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+    input, textarea, select { font-family: inherit; font-size: inherit; }
+
+    /* ===== Container ===== */
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 20px; }
+
+    /* ===== Typography ===== */
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; }
+    h1 { font-size: 64px; }
+    h2 { font-size: 50px; }
+    h3 { font-size: 42px; }
+    h4 { font-size: 32px; }
+    h5 { font-size: 24px; }
+    h6 { font-size: 20px; }
+    .pretitle {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: var(--transition-fast);
+      text-align: center;
+    }
+    .btn-primary {
+      background: var(--color-accent-red);
+      color: var(--color-white);
+      border: 2px solid var(--color-accent-red);
+    }
+    .btn-primary:hover { background: #c9151a; border-color: #c9151a; }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid var(--color-white);
+    }
+    .btn-outline:hover { background: var(--color-white); color: var(--color-black); }
+    .btn-dark {
+      background: var(--color-black);
+      color: var(--color-white);
+      border: 2px solid var(--color-black);
+    }
+    .btn-dark:hover { background: #333; border-color: #333; }
+
+    /* ===== Header / Navigation ===== */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .header-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .header-logo img {
+      height: 50px; width: auto;
+      filter: brightness(0) invert(1);
+      transition: filter 0.4s ease;
+    }
+    .header.scrolled .header-logo img { filter: none; }
+    .header-nav { display: flex; align-items: center; gap: 28px; }
+    .header-nav a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.9);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .header.scrolled .header-nav a { color: var(--color-black); }
+    .header-nav a:hover { color: var(--color-accent-red); }
+    .header-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-accent-red);
+      transition: var(--transition-fast);
+    }
+    .header-nav a:hover::after { width: 100%; }
+    .header-actions { display: flex; align-items: center; gap: 16px; }
+    .header-phone {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      transition: color 0.3s ease;
+    }
+    .header.scrolled .header-phone { color: var(--color-black); }
+    .header-phone:hover { color: var(--color-accent-red); }
+    .header-contact-btn {
+      padding: 10px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--color-accent-red);
+      color: var(--color-white);
+      border: none;
+      transition: var(--transition-fast);
+    }
+    .header-contact-btn:hover { background: #c9151a; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      z-index: 1100;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: rgba(255,255,255,0.9);
+      transition: var(--transition-fast);
+    }
+    .header.scrolled .hamburger span { background: var(--color-black); }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===== Side Menu (Mobile) ===== */
+    .sidemenu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 100%; max-width: 400px;
+      height: 100vh;
+      background: var(--color-white);
+      z-index: 1050;
+      transition: right 0.4s ease;
+      overflow-y: auto;
+      padding: 100px 40px 40px;
+    }
+    .sidemenu.open { right: 0; }
+    .sidemenu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1040;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .sidemenu-overlay.active { opacity: 1; pointer-events: all; }
+    .sidemenu-nav a {
+      display: block;
+      padding: 12px 0;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--color-black);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      transition: var(--transition-fast);
+    }
+    .sidemenu-nav a:hover { color: var(--color-accent-red); padding-left: 8px; }
+    .sidemenu-contact { margin-top: 40px; }
+    .sidemenu-contact p { margin-bottom: 8px; font-size: 14px; color: var(--color-gray-dark); }
+    .sidemenu-contact a { color: var(--color-accent-red); font-weight: 500; }
+    .sidemenu-socials { display: flex; gap: 16px; margin-top: 24px; }
+    .sidemenu-socials a {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-gray-border);
+      border-radius: 50%;
+      transition: var(--transition-fast);
+    }
+    .sidemenu-socials a:hover { background: var(--color-accent-red); border-color: var(--color-accent-red); color: white; }
+    .sidemenu-socials svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-poster {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.40);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--color-white);
+      padding: 0 20px;
+    }
+    .hero-pretitle {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .hero-title {
+      font-size: 72px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .hero-description {
+      font-size: 18px;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto 12px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+    .hero-license {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 32px;
+    }
+    .hero-cta { margin-top: 24px; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: 50px; height: 50px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      animation: scrollBounce 2s infinite;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .hero-scroll:hover { border-color: white; background: rgba(255,255,255,0.15); }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    .hero-sound {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 2;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .hero-sound:hover { background: rgba(255,255,255,0.15); }
+    .hero-sound svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ===== Gallery Grid Section ===== */
+    .gallery-grid-section { padding: var(--section-pad-y) 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--card-gap);
+    }
+    .gallery-grid-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-grid-item:hover img { transform: scale(1.05); }
+    .gallery-grid-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.05) 100%);
+      pointer-events: none;
+    }
+    .gallery-grid-title {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 1;
+      padding: 24px;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    /* ===== Agent / About Section ===== */
+    .agent-section { padding: var(--section-pad-y) 0; }
+    .agent-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .agent-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .agent-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 60%;
+      background: var(--color-navy);
+      opacity: 0.9;
+      z-index: 0;
+    }
+    .agent-heading {
+      position: absolute;
+      top: 40px; left: 40px; right: 40px;
+      z-index: 2;
+      color: white;
+    }
+    .agent-heading .pretitle { color: rgba(255,255,255,0.85); }
+    .agent-heading h2 { font-size: 42px; margin-bottom: 16px; }
+    .agent-heading p { font-size: 16px; line-height: 1.6; opacity: 0.9; }
+    .agent-photo {
+      position: relative;
+      z-index: 1;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .agent-content {
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .agent-content p {
+      margin-bottom: 16px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+    }
+    .agent-license {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-gray-border);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .agent-license-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--color-gray-dark); }
+    .agent-license-number { font-size: 14px; color: var(--color-black); }
+    .agent-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .agent-socials a {
+      width: 40px; height: 40px;
+      border: 1px solid var(--color-gray-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+    .agent-socials a:hover { background: var(--color-accent-red); border-color: var(--color-accent-red); color: white; }
+    .agent-socials svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ===== Newsletter Section ===== */
+    .newsletter-section {
+      padding: var(--section-pad-y) 0;
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+    .newsletter-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .newsletter-inner h2 { margin-bottom: 16px; }
+    .newsletter-inner h5 { font-weight: 400; margin-bottom: 8px; }
+    .newsletter-inner p { margin-bottom: 32px; opacity: 0.8; }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+    .newsletter-form input:focus { border-color: var(--color-accent-red); }
+    .newsletter-form button { white-space: nowrap; }
+
+    /* ===== Neighborhoods Section ===== */
+    .neighborhoods-section { padding: var(--section-pad-y) 0; }
+    .neighborhoods-header { text-align: center; margin-bottom: 48px; }
+    .neighborhoods-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .neighborhood-tab {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-gray-dark);
+      padding: 8px 4px;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition-fast);
+      cursor: pointer;
+      background: none;
+    }
+    .neighborhood-tab:hover { color: var(--color-black); }
+    .neighborhood-tab.active {
+      color: var(--color-accent-red);
+      border-bottom-color: var(--color-accent-red);
+    }
+    .neighborhoods-display {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      max-height: 500px;
+    }
+    .neighborhood-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .neighborhood-slide.active { opacity: 1; }
+    .neighborhood-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .neighborhood-slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,68,117,0.8) 0%, rgba(0,68,117,0.2) 60%, transparent 100%);
+    }
+    .neighborhood-slide-content {
+      position: absolute;
+      bottom: 40px; left: 40px;
+      color: white;
+    }
+    .neighborhood-slide-content h4 { font-size: 36px; margin-bottom: 12px; }
+    .neighborhood-slide-content h4 span { font-weight: 400; opacity: 0.7; display: block; font-size: 18px; font-family: var(--font-body); }
+    .neighborhood-read-more {
+      font-size: 14px;
+      font-weight: 500;
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      padding-bottom: 2px;
+      transition: var(--transition-fast);
+    }
+    .neighborhood-read-more:hover { border-bottom-color: white; }
+    .neighborhoods-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .neighborhoods-arrows button {
+      width: 48px; height: 48px;
+      border: 1px solid var(--color-gray-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: var(--transition-fast);
+    }
+    .neighborhoods-arrows button:hover {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: white;
+    }
+
+    /* ===== Home Valuation Section ===== */
+    .valuation-section {
+      position: relative;
+      padding: var(--section-pad-y) 0;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+    }
+    .valuation-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .valuation-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,68,117,0.85);
+    }
+    .valuation-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .valuation-info { color: white; }
+    .valuation-info .pretitle { color: rgba(255,255,255,0.75); }
+    .valuation-info h3 { font-size: 38px; margin-bottom: 16px; }
+    .valuation-form-wrap {
+      background: rgba(255,255,255,0.95);
+      padding: 48px;
+      border-radius: 4px;
+    }
+    .valuation-form-wrap label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--color-gray-dark);
+    }
+    .valuation-form-wrap input,
+    .valuation-form-wrap select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--color-gray-border);
+      background: white;
+      font-size: 15px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+    .valuation-form-wrap input:focus,
+    .valuation-form-wrap select:focus { border-color: var(--color-accent-red); }
+    .valuation-form-wrap .btn { width: 100%; margin-top: 8px; }
+
+    /* ===== Contact Form Section ===== */
+    .contact-section { padding: var(--section-pad-y) 0; }
+    .contact-inner { max-width: 800px; margin: 0 auto; }
+    .contact-inner h2 { text-align: center; margin-bottom: 40px; }
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .contact-form-grid .form-full { grid-column: 1 / -1; }
+    .contact-form-grid input,
+    .contact-form-grid textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--color-gray-border);
+      font-size: 15px;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+    .contact-form-grid input:focus,
+    .contact-form-grid textarea:focus { border-color: var(--color-accent-red); }
+    .contact-form-grid textarea { resize: vertical; min-height: 120px; }
+    .contact-form-grid .btn { margin-top: 8px; }
+    .form-disclaimer {
+      grid-column: 1 / -1;
+      font-size: 12px;
+      color: var(--color-gray-dark);
+      line-height: 1.5;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .form-disclaimer input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; }
+
+    /* ===== Stats Section ===== */
+    .stats-section { padding: var(--section-pad-y) 0; }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--card-gap);
+      text-align: center;
+    }
+    .stat-card {
+      padding: 40px 20px;
+      min-height: 198px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--color-black);
+      margin-bottom: 12px;
+    }
+    .stat-label {
+      font-size: 16px;
+      color: var(--color-gray-dark);
+      font-weight: 400;
+    }
+
+    /* ===== Testimonials Section ===== */
+    .testimonials-section {
+      position: relative;
+      padding: var(--section-pad-y) 0;
+    }
+    .testimonials-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .testimonials-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,68,117,0.88);
+    }
+    .testimonials-inner {
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+    .testimonials-header { text-align: center; margin-bottom: 48px; }
+    .testimonials-header .pretitle { color: rgba(255,255,255,0.75); }
+    .testimonials-header h2 { color: white; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .testimonial-card {
+      padding: 40px;
+      display: none;
+    }
+    .testimonial-card.active { display: block; }
+    .testimonial-quote-icon {
+      font-size: 60px;
+      line-height: 1;
+      color: var(--color-accent-red);
+      font-family: serif;
+      margin-bottom: 16px;
+    }
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+      opacity: 0.95;
+    }
+    .testimonial-author {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .testimonials-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .testimonials-arrows button {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      transition: var(--transition-fast);
+    }
+    .testimonials-arrows button:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: white;
+    }
+    .testimonials-view-all {
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* ===== CTA Section ===== */
+    .cta-section {
+      position: relative;
+      padding: var(--section-pad-y) 0;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(238,237,233,0.9);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cta-inner .pretitle { color: var(--color-gray-dark); }
+    .cta-inner h2 { margin-bottom: 16px; }
+    .cta-inner p { margin-bottom: 32px; color: #555; }
+    .cta-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .cta-divider span {
+      font-size: 14px;
+      color: var(--color-gray-dark);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .cta-divider::before,
+    .cta-divider::after {
+      content: '';
+      width: 40px; height: 2px;
+      background: var(--color-accent-red);
+    }
+    .cta-phone {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-black);
+      transition: var(--transition-fast);
+    }
+    .cta-phone:hover { color: var(--color-accent-red); }
+    .cta-phone-label {
+      font-size: 14px;
+      color: var(--color-gray-dark);
+      margin-bottom: 8px;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 60px 0 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .footer-logo-row {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .footer-logo-row img { height: 60px; margin: 0 auto; object-fit: contain; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h5 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .footer-col-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      color: var(--color-gray-dark);
+    }
+    .footer-col p, .footer-col a {
+      font-size: 14px;
+      line-height: 2;
+      color: #555;
+      transition: var(--transition-fast);
+    }
+    .footer-col a:hover { color: var(--color-accent-red); }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .footer-socials a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--color-gray-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+    .footer-socials a:hover { background: var(--color-accent-red); border-color: var(--color-accent-red); color: white; }
+    .footer-socials svg { width: 14px; height: 14px; fill: currentColor; }
+    .footer-disclaimer {
+      padding: 24px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      text-align: center;
+      font-size: 12px;
+      color: var(--color-gray-dark);
+      line-height: 1.8;
+    }
+    .footer-disclaimer img { display: inline-block; vertical-align: middle; width: 100px; margin-top: 8px; }
+    .footer-bottom {
+      padding: 20px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom img { height: 30px; }
+    .footer-bottom-text {
+      font-size: 12px;
+      color: var(--color-gray-light);
+    }
+    .footer-bottom-text a { text-decoration: underline; }
+    .footer-bottom-text a:hover { color: var(--color-accent-red); }
+
+    /* ===== Contact Modal ===== */
+    .contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .contact-modal.active { opacity: 1; pointer-events: all; }
+    .contact-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .contact-modal-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .contact-modal-left {
+      background: white;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .contact-modal-left h2 {
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+    .contact-modal-agent-name { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+    .contact-modal-agent-info { font-size: 14px; color: var(--color-gray-dark); margin-bottom: 4px; }
+    .contact-modal-agent-info a { color: var(--color-accent-red); }
+    .contact-modal-right {
+      background: var(--color-navy);
+      padding: 48px;
+      color: white;
+    }
+    .contact-modal-right h3 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: white;
+    }
+    .contact-modal-right input,
+    .contact-modal-right textarea,
+    .contact-modal-right select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: white;
+      font-size: 14px;
+      margin-bottom: 14px;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+    .contact-modal-right input::placeholder,
+    .contact-modal-right textarea::placeholder { color: rgba(255,255,255,0.5); }
+    .contact-modal-right input:focus,
+    .contact-modal-right textarea:focus { border-color: var(--color-accent-red); }
+    .contact-modal-right textarea { resize: vertical; min-height: 80px; }
+    .contact-modal-right select option { color: var(--color-black); }
+    .contact-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      z-index: 10;
+      transition: var(--transition-fast);
+    }
+    .contact-modal-close:hover { transform: rotate(90deg); }
+
+    /* ===== Mobile Fixed CTA Bar ===== */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 900;
+      background: white;
+      padding: 12px 20px;
+      box-shadow: 0 -2px 20px rgba(0,0,0,0.1);
+      justify-content: center;
+      gap: 12px;
+    }
+    .mobile-cta-bar .btn-primary { animation: pulsate 2s infinite; flex: 1; max-width: 280px; }
+    @keyframes pulsate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .mobile-cta-bar .mobile-phone-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--color-black);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    /* ===== Form Success ===== */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+    .form-success h3 { color: var(--color-accent-red); margin-bottom: 12px; }
+    .form-success.show { display: block; }
+
+    /* ===== Fade-in animations ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px) {
+      .header-nav { display: none; }
+      .header-actions .header-phone { display: none; }
+      .hamburger { display: flex; }
+      h1 { font-size: 48px; }
+      h2 { font-size: 38px; }
+      h3 { font-size: 32px; }
+      .hero-title { font-size: 52px; }
+      .agent-card { grid-template-columns: 1fr; }
+      .agent-photo-wrap { min-height: 500px; }
+      .agent-content { padding: 40px 24px; }
+      .valuation-content { grid-template-columns: 1fr; gap: 32px; }
+      .contact-modal-content { grid-template-columns: 1fr; }
+      .contact-modal-left { display: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --section-pad-y: 48px;
+      }
+      h1 { font-size: 36px; }
+      h2 { font-size: 30px; }
+      h3 { font-size: 25px; }
+      .hero-title { font-size: 40px; }
+      .hero-description { font-size: 16px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid-title { font-size: 22px; }
+      .stats-row { grid-template-columns: 1fr; gap: 0; }
+      .stat-card { min-height: auto; padding: 24px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .contact-form-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .neighborhoods-tabs { gap: 16px; }
+      .neighborhood-tab { font-size: 14px; }
+      .neighborhoods-display { aspect-ratio: 4/3; }
+      .valuation-form-wrap { padding: 28px; }
+      .mobile-cta-bar { display: flex; }
+      .footer { padding-bottom: 80px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 32px; }
+      .hero-scroll { bottom: 100px; }
+      .agent-heading h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">
+        <img src="assets/images/logo.jpg" alt="Nada Benny Real Estate">
+      </a>
+      <nav class="header-nav">
+        <a href="#gallery">Portfolio</a>
+        <a href="#neighborhoods">Neighborhoods</a>
+        <a href="#valuation">Home Valuation</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Let's Connect</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:6199875080" class="header-phone">(619) 987-5080</a>
+        <button class="header-contact-btn" onclick="openContactModal()">Contact</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Side Menu (Mobile) ===== -->
+  <div class="sidemenu-overlay" id="sidemenu-overlay"></div>
+  <div class="sidemenu" id="sidemenu">
+    <ul class="sidemenu-nav">
+      <li><a href="#" onclick="closeSidemenu()">Home</a></li>
+      <li><a href="#about" onclick="closeSidemenu()">Meet Nada</a></li>
+      <li><a href="#gallery" onclick="closeSidemenu()">Portfolio</a></li>
+      <li><a href="#neighborhoods" onclick="closeSidemenu()">Neighborhoods</a></li>
+      <li><a href="#valuation" onclick="closeSidemenu()">Home Valuation</a></li>
+      <li><a href="#testimonials" onclick="closeSidemenu()">Testimonials</a></li>
+      <li><a href="#contact" onclick="closeSidemenu()">Let's Connect</a></li>
+    </ul>
+    <div class="sidemenu-contact">
+      <p><strong>Nada Benny</strong> | CA DRE# 01938540</p>
+      <p><a href="tel:6199875080">(619) 987-5080</a></p>
+      <p><a href="mailto:nada.benny@gmail.com">nada.benny@gmail.com</a></p>
+      <p style="margin-top:12px">2240 Otay Lakes Rd<br>Chula Vista, CA 91915</p>
+    </div>
+    <div class="sidemenu-socials">
+      <a href="https://www.facebook.com/BennySellsSanDiego/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/ask_nerda/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/nada-benny/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@Ask_Nerda" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero" id="hero">
+    <video autoplay muted loop playsinline class="hero-video" poster="assets/images/hero-poster.jpg" id="hero-video">
+      <source src="assets/video/hero-aerial.webm" type="video/webm">
+      <source src="assets/video/hero-aerial.mp4" type="video/mp4">
+    </video>
+    <div class="hero-poster" style="background-image: url('assets/images/hero-poster-alt.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-pretitle">San Diego Home Sweet Home</p>
+      <h1 class="hero-title">Nada Benny</h1>
+      <p class="hero-description"><strong>Your key to all things Real Estate in sunny San Diego!</strong></p>
+      <p class="hero-license">CA DRE# 01938540</p>
+      <div class="hero-cta">
+        <a href="#valuation" class="btn btn-outline">Sell my home for top dollar</a>
+      </div>
+    </div>
+    <a href="#gallery" class="hero-scroll"><span>&#8595;</span></a>
+    <button class="hero-sound" id="hero-sound" aria-label="Toggle sound">
+      <svg viewBox="0 0 24 24" id="sound-off-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+      <svg viewBox="0 0 24 24" id="sound-on-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+    </button>
+  </section>
+
+  <!-- ===== Gallery Grid ===== -->
+  <section class="gallery-grid-section" id="gallery">
+    <div class="container">
+      <div class="gallery-grid">
+        <a class="gallery-grid-item fade-in" href="https://codaeddie.github.io/1728Bancroft/" target="_blank">
+          <img src="assets/images/featured-1728-bancroft.jpg" alt="1728 Bancroft Street" loading="lazy">
+          <h3 class="gallery-grid-title">1728 Bancroft Street</h3>
+        </a>
+        <a class="gallery-grid-item fade-in" href="#valuation">
+          <img src="assets/images/sell-home.jpg" alt="Sell my home fast!" loading="lazy">
+          <h3 class="gallery-grid-title">Sell my home fast!</h3>
+        </a>
+        <a class="gallery-grid-item fade-in" href="#contact">
+          <img src="assets/images/happy-home-hunting.jpg" alt="Happy Home Hunting!" loading="lazy">
+          <h3 class="gallery-grid-title">Happy Home Hunting!</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Agent / About ===== -->
+  <section class="agent-section" id="about">
+    <div class="agent-card fade-in">
+      <div class="agent-photo-wrap">
+        <div class="agent-heading">
+          <p class="pretitle">Are you ready to call</p>
+          <h2>San Diego your Home Sweet Home?</h2>
+          <p style="margin-top:12px">Sell and buy with me, your key and trusted advocate for all things Real Estate in sunny San Diego!</p>
+        </div>
+        <img src="assets/images/nada-benny-headshot.jpg" alt="Nada Benny" class="agent-photo" loading="lazy">
+      </div>
+      <div class="agent-content">
+        <p>My name is Nada Benny with Realty Executives Dillon. I have been a full time Realtor in San Diego since 2013 and it's safe to say I nerd out on all things real estate related! The majority of my business over the past 12 years is from referrals and repeat clients. This means the world to me.</p>
+        <p>I believe knowledge is power and I love empowering my clients with my expertise and experience to accomplish their real estate goals. Selling and buying a home can be challenging when you don't have an advocate on your side... Sell and buy with me and allow me to carry the weight off your shoulders!</p>
+        <p>When you sell with me, I handle every aspect of the pre-listing process. From recommendations on repairs and contractors to house cleaning and professional photography with drone videography. My marketing skills give my sellers the mass exposure their home deserves.</p>
+        <p>When you buy with me, you can expect a strategic approach that ensures you are able to attain the American dream of homeownership without throwing any logic out the window. Home buying with peace of mind while keeping your deposit protected is my guarantee.</p>
+        <p>If you need to sell a home or you're ready to call San Diego your Home Sweet Home, it would be my honor to advocate for you and your family next!</p>
+        <div class="agent-license">
+          <span class="agent-license-label">License</span>
+          <span class="agent-license-number">#01938540</span>
+        </div>
+        <div class="agent-socials">
+          <a href="https://www.linkedin.com/in/nada-benny/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/ask_nerda/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Ask_Nerda" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/BennySellsSanDiego/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsletter Signup ===== -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="container">
+      <div class="newsletter-inner fade-in">
+        <h2>Your key to San Diego Real Estate</h2>
+        <h5>Don't Let Your Dream Home Slip Away</h5>
+        <p>With tailored updates and premium opportunities, your next home is just a click away.</p>
+        <form class="newsletter-form" id="newsletter-form" onsubmit="handleFormSubmit(event, 'newsletter')">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="form-success" id="newsletter-success">
+          <h3>Thank You!</h3>
+          <p>You have successfully been added to the newsletter. Stay tuned for the latest updates!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Neighborhoods ===== -->
+  <section class="neighborhoods-section" id="neighborhoods">
+    <div class="container">
+      <div class="neighborhoods-header fade-in">
+        <p class="pretitle">Find the Right Community for Your Lifestyle</p>
+        <h2>Neighborhoods</h2>
+      </div>
+      <div class="neighborhoods-tabs" id="neighborhood-tabs">
+        <button class="neighborhood-tab active" data-index="0">El Cajon</button>
+        <button class="neighborhood-tab" data-index="1">San Carlos</button>
+        <button class="neighborhood-tab" data-index="2">Spring Valley</button>
+        <button class="neighborhood-tab" data-index="3">La Mesa</button>
+        <button class="neighborhood-tab" data-index="4">San Diego</button>
+        <button class="neighborhood-tab" data-index="5">Santee</button>
+      </div>
+      <div class="neighborhoods-display" id="neighborhoods-display">
+        <div class="neighborhood-slide active" data-name="El Cajon">
+          <img src="assets/images/neighborhood-el-cajon.jpg" alt="El Cajon" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>El Cajon</h4>
+          </div>
+        </div>
+        <div class="neighborhood-slide" data-name="San Carlos">
+          <img src="assets/images/neighborhood-san-carlos.jpg" alt="San Carlos" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>San Carlos</h4>
+          </div>
+        </div>
+        <div class="neighborhood-slide" data-name="Spring Valley">
+          <img src="assets/images/neighborhood-spring-valley.jpg" alt="Spring Valley" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>Spring Valley</h4>
+          </div>
+        </div>
+        <div class="neighborhood-slide" data-name="La Mesa">
+          <img src="assets/images/neighborhood-la-mesa.jpg" alt="La Mesa" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>La Mesa</h4>
+          </div>
+        </div>
+        <div class="neighborhood-slide" data-name="San Diego">
+          <img src="assets/images/neighborhood-san-diego.jpg" alt="San Diego" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>San Diego</h4>
+          </div>
+        </div>
+        <div class="neighborhood-slide" data-name="Santee">
+          <img src="assets/images/neighborhood-santee.jpg" alt="Santee" loading="lazy">
+          <div class="neighborhood-slide-overlay"></div>
+          <div class="neighborhood-slide-content">
+            <h4><span>Explore</span>Santee</h4>
+          </div>
+        </div>
+      </div>
+      <div class="neighborhoods-arrows">
+        <button onclick="changeNeighborhood(-1)" aria-label="Previous">&#8249;</button>
+        <button onclick="changeNeighborhood(1)" aria-label="Next">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Home Valuation ===== -->
+  <section class="valuation-section" id="valuation">
+    <div class="valuation-bg" style="background-image: url('assets/images/bg-home-valuation.jpg')"></div>
+    <div class="valuation-overlay"></div>
+    <div class="container">
+      <div class="valuation-content fade-in">
+        <div class="valuation-info">
+          <p class="pretitle">Find Out What Your Home Can Sell For Today</p>
+          <h3>Sell With Confidence With my free seller guide</h3>
+        </div>
+        <div class="valuation-form-wrap">
+          <form id="valuation-form" onsubmit="handleFormSubmit(event, 'valuation')">
+            <label for="val-address">Enter your address to begin</label>
+            <input type="text" id="val-address" name="address" placeholder="Type address" required>
+            <label for="val-name">Your name</label>
+            <input type="text" id="val-name" name="name" placeholder="Your name" required>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label for="val-phone">Phone</label>
+                <input type="tel" id="val-phone" name="phone" placeholder="Your phone" required>
+              </div>
+              <div>
+                <label for="val-email">Email</label>
+                <input type="email" id="val-email" name="email" placeholder="Your email" required>
+              </div>
+            </div>
+            <label for="val-timeframe">Timeframe</label>
+            <select id="val-timeframe" name="timeframe" required>
+              <option value="" disabled selected>Select</option>
+              <option value="now">I want to sell my home now</option>
+              <option value="3months">In the next 3 months</option>
+              <option value="12months">In the next 12 months</option>
+              <option value="curious">I'm just curious..</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Get My Home Value</button>
+          </form>
+          <div class="form-success" id="valuation-success">
+            <h3>Thank You!</h3>
+            <p>Thank you for reaching out! I'll be in touch shortly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact Form ===== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-inner fade-in">
+        <h2>Want free market updates?</h2>
+        <form id="contact-form" onsubmit="handleFormSubmit(event, 'contact')">
+          <div class="contact-form-grid">
+            <div>
+              <input type="text" name="name" placeholder="Enter Your Full Name" required>
+            </div>
+            <div>
+              <input type="tel" name="phone" placeholder="Your Phone" required>
+            </div>
+            <div>
+              <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-full">
+              <textarea name="message" placeholder="Type Your Message" rows="4"></textarea>
+            </div>
+            <div class="form-disclaimer">
+              <input type="checkbox" id="contact-terms" required>
+              <label for="contact-terms">I agree to be contacted by Nada Benny via call, email, and text for real estate services. To opt out, reply 'stop' at any time. Message and data rates may apply.</label>
+            </div>
+            <div class="form-full">
+              <button type="submit" class="btn btn-dark">Send Message</button>
+            </div>
+          </div>
+        </form>
+        <div class="form-success" id="contact-success">
+          <h3>Message Sent!</h3>
+          <p>Thank you for your message. I will be in touch with you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-row fade-in">
+        <div class="stat-card">
+          <div class="stat-value">6+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--color-accent-red)">&#11089;&#11089;&#11089;&#11089;&#11089;</div>
+          <div class="stat-label">5-Star Client Reviews</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">47+</div>
+          <div class="stat-label">Families Helped</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="testimonials-bg" style="background-image: url('assets/images/bg-testimonials.jpg')"></div>
+    <div class="testimonials-overlay"></div>
+    <div class="container">
+      <div class="testimonials-inner">
+        <div class="testimonials-header fade-in">
+          <p class="pretitle">Hear From Happy Clients</p>
+          <h2>Testimonials</h2>
+        </div>
+        <div class="testimonials-grid" id="testimonials-grid">
+          <!-- Page 0: cards 0,1 -->
+          <div class="testimonial-card active" data-page="0">
+            <div class="testimonial-quote-icon">&ldquo;</div>
+            <div class="testimonial-text">Honest, professional, kind, and very knowledgeable.</div>
+            <div class="testimonial-author">Roni K.</div>
+          </div>
+          <div class="testimonial-card active" data-page="0">
+            <div class="testimonial-quote-icon">&ldquo;</div>
+            <div class="testimonial-text">At the time I purchased my condo, I was just beginning life as a single person, hesitant in some areas while being excited to move onto the next stage of my life. Nada was amazingly patient with my endless questions and spent the necessary time to make sure they were answered. I highly recommend Nada&mdash;she will go the extra mile to help you and your family become happy homeowners.</div>
+            <div class="testimonial-author">Cindi K.</div>
+          </div>
+          <!-- Page 1: cards 2,3 -->
+          <div class="testimonial-card" data-page="1">
+            <div class="testimonial-quote-icon">&ldquo;</div>
+            <div class="testimonial-text">Very quick and responsive, and would highly recommend her to anyone looking to find a house or sell one. Nada is the realtor you can always count on to help you with your transaction from start to closing.</div>
+            <div class="testimonial-author">Seller</div>
+          </div>
+          <div class="testimonial-card" data-page="1">
+            <div class="testimonial-quote-icon">&ldquo;</div>
+            <div class="testimonial-text">My family and I have been trying to buy a house for a couple of years now but we could never seem to get the right support. Nada was not only willing to find us our dream home, but she also negotiated down to the price we could afford.</div>
+            <div class="testimonial-author">Martin A.</div>
+          </div>
+        </div>
+        <div class="testimonials-arrows">
+          <button onclick="changeTestimonialPage(-1)" aria-label="Previous">&#8249;</button>
+          <button onclick="changeTestimonialPage(1)" aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA Section ===== -->
+  <section class="cta-section" id="cta">
+    <div class="cta-bg" style="background-image: url('assets/images/bg-cta.jpg')"></div>
+    <div class="cta-overlay"></div>
+    <div class="container">
+      <div class="cta-inner fade-in">
+        <p class="pretitle">Ready to call San Diego your Home Sweet Home?</p>
+        <h2>Let's Chat!</h2>
+        <p>Let's chat and create a customized game plan to help you accomplish your real estate goals!</p>
+        <button class="btn btn-primary" onclick="openContactModal()">Let's team up to make your real estate dreams a reality</button>
+        <div class="cta-divider"><span>or</span></div>
+        <p class="cta-phone-label">Call me today</p>
+        <a href="tel:6199875080" class="cta-phone">(619) 987-5080</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-logo-row">
+        <img src="assets/images/footer-logo.jpg" alt="Nada Benny Real Estate" loading="lazy">
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h5>Nada Benny</h5>
+          <p class="footer-col-title">Let's chat!</p>
+          <p><a href="tel:6199875080">(619) 987-5080</a></p>
+          <p><a href="mailto:nada.benny@gmail.com">Nada.Benny@Gmail.com</a></p>
+          <p class="footer-col-title" style="margin-top:20px">Address</p>
+          <p>2240 Otay Lakes Rd<br>Chula Vista, CA 91915</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/BennySellsSanDiego/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/ask_nerda/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/nada-benny/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@Ask_Nerda" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Navigation</p>
+          <a href="#gallery">Portfolio</a><br>
+          <a href="#contact">Happy Home Hunting!</a><br>
+          <a href="#valuation">Home Valuation</a><br>
+          <a href="#neighborhoods">Neighborhoods</a><br>
+          <a href="#" onclick="openContactModal(); return false;">Let's Connect</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Useful Items</p>
+          <a href="#testimonials">Testimonials</a><br>
+          <a href="#about">Meet Nada</a><br>
+          <a href="#newsletter">Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-disclaimer">
+        <p>Nada Benny | CA DRE# 01938540<br>Dillon Corporation | CA DRE# 01233826</p>
+        <p style="margin-top:8px">All information is deemed reliable but not guaranteed and should be independently reviewed and verified.</p>
+        <img src="assets/images/eho-logo.png" alt="Equal Housing Opportunity" loading="lazy">
+      </div>
+      <div class="footer-bottom">
+        <img src="assets/images/realty-executives-logo.jpg" alt="Realty Executives" loading="lazy">
+        <div class="footer-bottom-text">
+          <span>Copyright &copy; <span id="auto-year">2026</span></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Contact Modal ===== -->
+  <div class="contact-modal" id="contact-modal">
+    <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
+    <div class="contact-modal-content">
+      <button class="contact-modal-close" onclick="closeContactModal()">&times;</button>
+      <div class="contact-modal-left">
+        <h2><span style="display:block;font-size:20px;font-family:var(--font-body);font-weight:400;color:var(--color-gray-dark)">Get</span>in Touch</h2>
+        <p class="contact-modal-agent-name">Nada Benny | CA DRE# 01938540</p>
+        <p class="contact-modal-agent-info"><a href="tel:6199875080">(619) 987-5080</a></p>
+        <p class="contact-modal-agent-info"><a href="mailto:nada.benny@gmail.com">nada.benny@gmail.com</a></p>
+        <p class="contact-modal-agent-info" style="margin-top:12px">2240 Otay Lakes Rd<br>Chula Vista, CA 91915</p>
+      </div>
+      <div class="contact-modal-right">
+        <h3>Send a Message</h3>
+        <form id="modal-form" onsubmit="handleFormSubmit(event, 'modal')">
+          <input type="text" name="name" placeholder="Full Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="tel" name="phone" placeholder="Phone" required>
+          <select name="interest" required>
+            <option value="" disabled selected>Interested in...</option>
+            <option value="Selling & Buying">Selling & Buying</option>
+            <option value="Selling">Selling</option>
+            <option value="Buying">Buying</option>
+            <option value="Renting">Renting</option>
+            <option value="Other">Other</option>
+          </select>
+          <textarea name="message" placeholder="Message" rows="3" required></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%">Submit</button>
+        </form>
+        <div class="form-success" id="modal-success" style="color:white">
+          <h3 style="color:white">Thank You!</h3>
+          <p>I will be in touch with you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Mobile Fixed CTA Bar ===== -->
+  <div class="mobile-cta-bar">
+    <a href="tel:6199875080" class="mobile-phone-btn" aria-label="Call">&#9742;</a>
+    <button class="btn btn-primary" onclick="openContactModal()">Let's Connect</button>
+  </div>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    /* --- Mobile Menu --- */
+    const hamburger = document.getElementById('hamburger');
+    const sidemenu = document.getElementById('sidemenu');
+    const sidemenuOverlay = document.getElementById('sidemenu-overlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      sidemenu.classList.toggle('open');
+      sidemenuOverlay.classList.toggle('active');
+      document.body.style.overflow = sidemenu.classList.contains('open') ? 'hidden' : '';
+    });
+    sidemenuOverlay.addEventListener('click', closeSidemenu);
+
+    function closeSidemenu() {
+      hamburger.classList.remove('active');
+      sidemenu.classList.remove('open');
+      sidemenuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    /* --- Hero Sound Toggle --- */
+    const heroVideo = document.getElementById('hero-video');
+    const heroSoundBtn = document.getElementById('hero-sound');
+    const soundOffIcon = document.getElementById('sound-off-icon');
+    const soundOnIcon = document.getElementById('sound-on-icon');
+
+    heroSoundBtn.addEventListener('click', () => {
+      heroVideo.muted = !heroVideo.muted;
+      soundOffIcon.style.display = heroVideo.muted ? 'block' : 'none';
+      soundOnIcon.style.display = heroVideo.muted ? 'none' : 'block';
+    });
+
+    /* --- Neighborhoods Slider --- */
+    let currentNeighborhood = 0;
+    const neighborhoodSlides = document.querySelectorAll('.neighborhood-slide');
+    const neighborhoodTabs = document.querySelectorAll('.neighborhood-tab');
+
+    function showNeighborhood(index) {
+      neighborhoodSlides.forEach((s, i) => s.classList.toggle('active', i === index));
+      neighborhoodTabs.forEach((t, i) => t.classList.toggle('active', i === index));
+      currentNeighborhood = index;
+    }
+
+    neighborhoodTabs.forEach(tab => {
+      tab.addEventListener('click', () => showNeighborhood(parseInt(tab.dataset.index)));
+    });
+
+    function changeNeighborhood(dir) {
+      let next = currentNeighborhood + dir;
+      if (next < 0) next = neighborhoodSlides.length - 1;
+      if (next >= neighborhoodSlides.length) next = 0;
+      showNeighborhood(next);
+    }
+
+    /* --- Testimonials Paging --- */
+    let currentTestimonialPage = 0;
+    const totalTestimonialPages = 2;
+
+    function showTestimonialPage(page) {
+      document.querySelectorAll('.testimonial-card').forEach(card => {
+        card.classList.toggle('active', parseInt(card.dataset.page) === page);
+      });
+      currentTestimonialPage = page;
+    }
+
+    function changeTestimonialPage(dir) {
+      let next = currentTestimonialPage + dir;
+      if (next < 0) next = totalTestimonialPages - 1;
+      if (next >= totalTestimonialPages) next = 0;
+      showTestimonialPage(next);
+    }
+
+    /* --- Contact Modal --- */
+    function openContactModal() {
+      document.getElementById('contact-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('contact-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeContactModal();
+    });
+
+    /* --- Form Handling --- */
+    function handleFormSubmit(e, formId) {
+      e.preventDefault();
+      const form = e.target;
+      const successEl = document.getElementById(formId + '-success');
+      form.style.display = 'none';
+      successEl.classList.add('show');
+    }
+
+    /* --- Scroll Fade-in --- */
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
+
+    /* --- Smooth Scroll for nav links --- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const headerHeight = document.getElementById('header').offsetHeight;
+          window.scrollTo({
+            top: target.offsetTop - headerHeight,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    /* --- Auto-update copyright year --- */
+    document.getElementById('auto-year').textContent = new Date().getFullYear();
+
+    /* --- Header scroll: transparent over hero, solid white after --- */
+    const headerEl = document.getElementById('header');
+    function updateHeader() {
+      const heroBottom = document.getElementById('hero').offsetHeight - 100;
+      if (window.scrollY > heroBottom) {
+        headerEl.classList.add('scrolled');
+      } else {
+        headerEl.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+  </script>
+
+</body>
+</html>
