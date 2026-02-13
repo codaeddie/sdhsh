@@ -673,16 +673,18 @@
       justify-content: center;
     }
     .stat-value {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 400;
+      font-family: var(--font-body);
+      font-size: 52px;
+      font-weight: 700;
       color: var(--color-black);
       margin-bottom: 12px;
     }
     .stat-label {
+      font-family: var(--font-body);
       font-size: 16px;
       color: var(--color-gray-dark);
-      font-weight: 400;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
 
     /* ===== Testimonials Section ===== */
@@ -1091,7 +1093,6 @@
         <a href="#neighborhoods">Neighborhoods</a>
         <a href="#valuation">Home Valuation</a>
         <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Let's Connect</a>
       </nav>
       <div class="header-actions">
         <a href="tel:6199875080" class="header-phone">(619) 987-5080</a>
@@ -1113,7 +1114,6 @@
       <li><a href="#neighborhoods" onclick="closeSidemenu()">Neighborhoods</a></li>
       <li><a href="#valuation" onclick="closeSidemenu()">Home Valuation</a></li>
       <li><a href="#testimonials" onclick="closeSidemenu()">Testimonials</a></li>
-      <li><a href="#contact" onclick="closeSidemenu()">Let's Connect</a></li>
     </ul>
     <div class="sidemenu-contact">
       <p><strong>Nada Benny</strong> | CA DRE# 01938540</p>
@@ -1172,7 +1172,7 @@
           <img src="assets/images/sell-home.jpg" alt="Sell my home fast!" loading="lazy">
           <h3 class="gallery-grid-title">Sell my home fast!</h3>
         </a>
-        <a class="gallery-grid-item fade-in" href="#contact">
+        <a class="gallery-grid-item fade-in" href="#cta">
           <img src="assets/images/happy-home-hunting.jpg" alt="Happy Home Hunting!" loading="lazy">
           <h3 class="gallery-grid-title">Happy Home Hunting!</h3>
         </a>
@@ -1221,7 +1221,7 @@
   <section class="newsletter-section" id="newsletter">
     <div class="container">
       <div class="newsletter-inner fade-in">
-        <h2>Your key to San Diego Real Estate</h2>
+        <h2 style="white-space:nowrap">Your key to San Diego Real Estate</h2>
         <form class="newsletter-form" style="margin-top:32px" id="newsletter-form" onsubmit="handleFormSubmit(event, 'newsletter')">
           <input type="text" name="name" placeholder="Name" required>
           <input type="email" name="email" placeholder="Email" required>
@@ -1346,42 +1346,6 @@
     </div>
   </section>
 
-  <!-- ===== Contact Form ===== -->
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-inner fade-in">
-        <h2>Want free market updates?</h2>
-        <form id="contact-form" onsubmit="handleFormSubmit(event, 'contact')">
-          <div class="contact-form-grid">
-            <div>
-              <input type="text" name="name" placeholder="Enter Your Full Name" required>
-            </div>
-            <div>
-              <input type="tel" name="phone" placeholder="Your Phone" required>
-            </div>
-            <div>
-              <input type="email" name="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-full">
-              <textarea name="message" placeholder="Type Your Message" rows="4"></textarea>
-            </div>
-            <div class="form-disclaimer">
-              <input type="checkbox" id="contact-terms" required>
-              <label for="contact-terms">I agree to be contacted by Nada Benny via call, email, and text for real estate services. To opt out, reply 'stop' at any time. Message and data rates may apply.</label>
-            </div>
-            <div class="form-full">
-              <button type="submit" class="btn btn-dark">Send Message</button>
-            </div>
-          </div>
-        </form>
-        <div class="form-success" id="contact-success">
-          <h3>Message Sent!</h3>
-          <p>Thank you for your message. I will be in touch with you shortly.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== Stats ===== -->
   <section class="stats-section" id="stats">
     <div class="container">
@@ -1493,16 +1457,15 @@
         <div class="footer-col">
           <p class="footer-col-title">Navigation</p>
           <a href="#gallery">Portfolio</a><br>
-          <a href="#contact">Happy Home Hunting!</a><br>
           <a href="#valuation">Home Valuation</a><br>
           <a href="#neighborhoods">Neighborhoods</a><br>
-          <a href="#" onclick="openContactModal(); return false;">Let's Connect</a>
+          <a href="#testimonials">Testimonials</a>
         </div>
         <div class="footer-col">
-          <p class="footer-col-title">Useful Items</p>
-          <a href="#testimonials">Testimonials</a><br>
+          <p class="footer-col-title">More</p>
           <a href="#about">Meet Nada</a><br>
-          <a href="#newsletter">Newsletter</a>
+          <a href="#newsletter">Newsletter</a><br>
+          <a href="#" onclick="openContactModal(); return false;">Contact</a>
         </div>
       </div>
       <div class="footer-disclaimer">
@@ -1511,7 +1474,7 @@
         <img src="assets/images/eho-logo.png" alt="Equal Housing Opportunity" loading="lazy">
       </div>
       <div class="footer-bottom">
-        <img src="assets/images/realty-executives-logo.jpg" alt="Realty Executives" loading="lazy">
+        <img src="assets/images/logo.jpg" alt="San Diego Home Sweet Home" loading="lazy">
         <div class="footer-bottom-text">
           <span>Copyright &copy; <span id="auto-year">2026</span></span>
         </div>
