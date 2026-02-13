@@ -282,31 +282,29 @@
       color: var(--color-white);
       padding: 0 20px;
     }
-    .hero-pretitle {
-      font-family: var(--font-body);
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      opacity: 0.9;
-    }
     .hero-title {
-      font-size: 72px;
+      font-family: var(--font-display);
+      font-size: 60px;
       font-weight: 400;
       margin-bottom: 20px;
       line-height: 1.1;
+      letter-spacing: 2px;
     }
     .hero-description {
-      font-size: 18px;
+      font-family: var(--font-display);
+      font-size: 22px;
       font-weight: 400;
       max-width: 600px;
       margin: 0 auto 12px;
       opacity: 0.9;
       line-height: 1.5;
+      font-style: italic;
     }
     .hero-license {
+      font-family: var(--font-body);
       font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
       opacity: 0.7;
       margin-bottom: 32px;
     }
@@ -403,23 +401,8 @@
       overflow: hidden;
     }
     .agent-photo-wrap::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 60%;
-      background: var(--color-navy);
-      opacity: 0.9;
-      z-index: 0;
+      display: none;
     }
-    .agent-heading {
-      position: absolute;
-      top: 40px; left: 40px; right: 40px;
-      z-index: 2;
-      color: white;
-    }
-    .agent-heading .pretitle { color: rgba(255,255,255,0.85); }
-    .agent-heading h2 { font-size: 42px; margin-bottom: 16px; }
-    .agent-heading p { font-size: 16px; line-height: 1.6; opacity: 0.9; }
     .agent-photo {
       position: relative;
       z-index: 1;
@@ -1053,7 +1036,7 @@
       h1 { font-size: 48px; }
       h2 { font-size: 38px; }
       h3 { font-size: 32px; }
-      .hero-title { font-size: 52px; }
+      .hero-title { font-size: 46px; }
       .agent-card { grid-template-columns: 1fr; }
       .agent-photo-wrap { min-height: 500px; }
       .agent-content { padding: 40px 24px; }
@@ -1070,8 +1053,8 @@
       h1 { font-size: 36px; }
       h2 { font-size: 30px; }
       h3 { font-size: 25px; }
-      .hero-title { font-size: 40px; }
-      .hero-description { font-size: 16px; }
+      .hero-title { font-size: 34px; }
+      .hero-description { font-size: 17px; }
       .gallery-grid { grid-template-columns: 1fr; }
       .gallery-grid-title { font-size: 22px; }
       .stats-row { grid-template-columns: 1fr; gap: 0; }
@@ -1089,7 +1072,7 @@
     }
 
     @media (max-width: 480px) {
-      .hero-title { font-size: 32px; }
+      .hero-title { font-size: 28px; }
       .hero-scroll { bottom: 100px; }
       .agent-heading h2 { font-size: 28px; }
     }
@@ -1163,9 +1146,8 @@
     <div class="hero-poster" style="background-image: url('assets/images/hero-poster-alt.jpg')"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-pretitle">San Diego Home Sweet Home</p>
-      <h1 class="hero-title">Nada Benny</h1>
-      <p class="hero-description"><strong>Your key to all things Real Estate in sunny San Diego!</strong></p>
+      <h1 class="hero-title">San Diego Home Sweet Home</h1>
+      <p class="hero-description">Your key to all things Real Estate in sunny San Diego!</p>
       <p class="hero-license">CA DRE# 01938540</p>
       <div class="hero-cta">
         <a href="#valuation" class="btn btn-outline">Sell my home for top dollar</a>
@@ -1182,7 +1164,7 @@
   <section class="gallery-grid-section" id="gallery">
     <div class="container">
       <div class="gallery-grid">
-        <a class="gallery-grid-item fade-in" href="https://codaeddie.github.io/1728Bancroft/" target="_blank">
+        <a class="gallery-grid-item fade-in" href="https://www.1728bancroftst.com/" target="_blank">
           <img src="assets/images/featured-1728-bancroft.jpg" alt="1728 Bancroft Street" loading="lazy">
           <h3 class="gallery-grid-title">1728 Bancroft Street</h3>
         </a>
@@ -1202,14 +1184,12 @@
   <section class="agent-section" id="about">
     <div class="agent-card fade-in">
       <div class="agent-photo-wrap">
-        <div class="agent-heading">
-          <p class="pretitle">Are you ready to call</p>
-          <h2>San Diego your Home Sweet Home?</h2>
-          <p style="margin-top:12px">Sell and buy with me, your key and trusted advocate for all things Real Estate in sunny San Diego!</p>
-        </div>
         <img src="assets/images/nada-benny-headshot.jpg" alt="Nada Benny" class="agent-photo" loading="lazy">
       </div>
       <div class="agent-content">
+        <p class="pretitle" style="color:var(--color-accent-red)">Are you ready to call</p>
+        <h2 style="margin-bottom:12px">San Diego your Home Sweet Home?</h2>
+        <p style="margin-bottom:24px;font-size:16px;color:var(--color-navy);font-weight:500">Sell and buy with me, your key and trusted advocate for all things Real Estate in sunny San Diego!</p>
         <p>My name is Nada Benny with Realty Executives Dillon. I have been a full time Realtor in San Diego since 2013 and it's safe to say I nerd out on all things real estate related! The majority of my business over the past 12 years is from referrals and repeat clients. This means the world to me.</p>
         <p>I believe knowledge is power and I love empowering my clients with my expertise and experience to accomplish their real estate goals. Selling and buying a home can be challenging when you don't have an advocate on your side... Sell and buy with me and allow me to carry the weight off your shoulders!</p>
         <p>When you sell with me, I handle every aspect of the pre-listing process. From recommendations on repairs and contractors to house cleaning and professional photography with drone videography. My marketing skills give my sellers the mass exposure their home deserves.</p>
@@ -1242,9 +1222,7 @@
     <div class="container">
       <div class="newsletter-inner fade-in">
         <h2>Your key to San Diego Real Estate</h2>
-        <h5>Don't Let Your Dream Home Slip Away</h5>
-        <p>With tailored updates and premium opportunities, your next home is just a click away.</p>
-        <form class="newsletter-form" id="newsletter-form" onsubmit="handleFormSubmit(event, 'newsletter')">
+        <form class="newsletter-form" style="margin-top:32px" id="newsletter-form" onsubmit="handleFormSubmit(event, 'newsletter')">
           <input type="text" name="name" placeholder="Name" required>
           <input type="email" name="email" placeholder="Email" required>
           <button type="submit" class="btn btn-primary">Submit</button>
