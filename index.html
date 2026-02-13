@@ -2,8 +2,8 @@
 <!--
   sdhsh — Nada Benny Real Estate (San Diego Home Sweet Home)
   Standalone single-file site. All CSS and JS inline.
-  Sections: Hero (video), Gallery Grid, Agent Bio, Newsletter Signup,
-  Neighborhoods, Home Valuation CTA, Contact Form, Stats, Testimonials,
+  Sections: Hero (video), Gallery Grid, Agent Bio (with inline stats),
+  Newsletter Signup, Neighborhoods, Home Valuation CTA, Testimonials,
   CTA Banner, Footer, Contact Modal, Mobile Menu.
 -->
 <html lang="en">
@@ -656,32 +656,28 @@
     }
     .form-disclaimer input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; }
 
-    /* ===== Stats Section ===== */
-    .stats-section { padding: var(--section-pad-y) 0; }
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--card-gap);
+    /* ===== Agent Stats (inline in bio) ===== */
+    .agent-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-gray-border);
+    }
+    .agent-stat {
       text-align: center;
     }
-    .stat-card {
-      padding: 40px 20px;
-      min-height: 198px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .stat-value {
+    .agent-stat-value {
       font-family: var(--font-body);
-      font-size: 52px;
+      font-size: 36px;
       font-weight: 700;
-      color: var(--color-black);
-      margin-bottom: 12px;
+      color: var(--color-accent-red);
+      line-height: 1;
+      margin-bottom: 6px;
     }
-    .stat-label {
+    .agent-stat-label {
       font-family: var(--font-body);
-      font-size: 16px;
+      font-size: 13px;
       color: var(--color-gray-dark);
       font-weight: 500;
       letter-spacing: 0.5px;
@@ -1059,8 +1055,7 @@
       .hero-description { font-size: 17px; }
       .gallery-grid { grid-template-columns: 1fr; }
       .gallery-grid-title { font-size: 22px; }
-      .stats-row { grid-template-columns: 1fr; gap: 0; }
-      .stat-card { min-height: auto; padding: 24px; }
+      .agent-stats { gap: 24px; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .contact-form-grid { grid-template-columns: 1fr; }
       .newsletter-form { flex-direction: column; }
@@ -1195,6 +1190,16 @@
         <p>When you sell with me, I handle every aspect of the pre-listing process. From recommendations on repairs and contractors to house cleaning and professional photography with drone videography. My marketing skills give my sellers the mass exposure their home deserves.</p>
         <p>When you buy with me, you can expect a strategic approach that ensures you are able to attain the American dream of homeownership without throwing any logic out the window. Home buying with peace of mind while keeping your deposit protected is my guarantee.</p>
         <p>If you need to sell a home or you're ready to call San Diego your Home Sweet Home, it would be my honor to advocate for you and your family next!</p>
+        <div class="agent-stats">
+          <div class="agent-stat">
+            <div class="agent-stat-value">12+</div>
+            <div class="agent-stat-label">Years of Experience</div>
+          </div>
+          <div class="agent-stat">
+            <div class="agent-stat-value">100+</div>
+            <div class="agent-stat-label">Families Helped</div>
+          </div>
+        </div>
         <div class="agent-license">
           <span class="agent-license-label">License</span>
           <span class="agent-license-number">#01938540</span>
@@ -1341,26 +1346,6 @@
             <h3>Thank You!</h3>
             <p>Thank you for reaching out! I'll be in touch shortly.</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Stats ===== -->
-  <section class="stats-section" id="stats">
-    <div class="container">
-      <div class="stats-row fade-in">
-        <div class="stat-card">
-          <div class="stat-value">6+</div>
-          <div class="stat-label">Years of Experience</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" style="color:var(--color-accent-red)">&#11089;&#11089;&#11089;&#11089;&#11089;</div>
-          <div class="stat-label">5-Star Client Reviews</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">47+</div>
-          <div class="stat-label">Families Helped</div>
         </div>
       </div>
     </div>

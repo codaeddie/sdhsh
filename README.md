@@ -26,11 +26,10 @@ This site replaces a previous Luxury Presence-hosted website. It is a single-fil
 - **Hero** — Full-viewport aerial drone video (mp4/webm), dark overlay, tagline, CTA, scroll indicator, and mute/unmute toggle
 - **Header** — Fixed nav that transitions from transparent over the hero to solid white on scroll; hamburger + slide-out side menu on mobile
 - **Gallery Grid** — 3-tile grid: featured 1728 Bancroft St listing (links to standalone property site), "Sell my home fast!" CTA, "Happy Home Hunting!" CTA
-- **Agent Bio** — Two-column layout with headshot and full bio; license info and social links (LinkedIn, Instagram, YouTube, Facebook)
+- **Agent Bio** — Two-column layout with headshot, full bio, inline stats (12+ years experience, 100+ families helped), license info, and social links (LinkedIn, Instagram, YouTube, Facebook)
 - **Newsletter Signup** — Dark-background name/email capture form
 - **Neighborhoods** — Tabbed image slider for 6 areas: El Cajon, San Carlos, Spring Valley, La Mesa, San Diego, Santee
 - **Home Valuation** — Navy-overlay lead capture form (address, name, phone, email, selling timeframe)
-- **Stats** — 3-column banner — 6+ years experience, 5-star reviews, 47+ families helped
 - **Testimonials** — Paginated two-up testimonial cards over a navy background
 - **CTA Banner** — "Let's Chat!" call-to-action with contact modal trigger and phone number
 - **Contact Modal** — Full-screen popup with agent info + contact form (name, email, phone, interest, message)
@@ -87,3 +86,21 @@ git add -A && git commit -m "describe changes" && git push
 ## Author
 
 Built by [codaeddie](https://github.com/codaeddie) for Nada Benny.
+
+---
+
+## Change Log
+
+### 2026-02-12 — Move stats into bio section, update experience numbers
+
+**What changed:**
+- Removed the standalone 3-column Stats section (`#stats`) entirely
+- Moved the stats inline into the Agent Bio section as compact red-accent figures displayed below the bio copy, above the license
+- Updated years of experience from "6+" to **"12+"** (calculated from license date 09/17/2013)
+- Updated families helped from "47+" to **"100+"**
+- Removed the 5-star reviews stat (decorative stars with no real info)
+- Cleaned up related CSS: replaced `.stats-section` / `.stats-row` / `.stat-card` / `.stat-value` / `.stat-label` styles with new `.agent-stats` / `.agent-stat` / `.agent-stat-value` / `.agent-stat-label` styles scoped to the bio
+- Removed stats responsive overrides from the 768px breakpoint
+- Updated top-of-file HTML comment to reflect removed Stats section
+- Deleted `SETUP.md` (deployment is complete — Vercel, DNS, and GitHub Pages migration all done)
+- Rewrote `README.md` to reflect the finished, live state of the site
