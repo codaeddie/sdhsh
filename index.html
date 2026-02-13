@@ -422,16 +422,6 @@
       line-height: 1.7;
       color: #444;
     }
-    .agent-license {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--color-gray-border);
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-    .agent-license-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--color-gray-dark); }
-    .agent-license-number { font-size: 14px; color: var(--color-black); }
     .agent-socials {
       display: flex;
       gap: 12px;
@@ -659,6 +649,7 @@
     /* ===== Agent Stats (inline in bio) ===== */
     .agent-stats {
       display: flex;
+      align-items: center;
       gap: 32px;
       margin-top: 28px;
       padding-top: 24px;
@@ -1199,10 +1190,10 @@
             <div class="agent-stat-value">100+</div>
             <div class="agent-stat-label">Families Helped</div>
           </div>
-        </div>
-        <div class="agent-license">
-          <span class="agent-license-label">License</span>
-          <span class="agent-license-number">#01938540</span>
+          <div class="agent-stat">
+            <div class="agent-stat-value" style="color:var(--color-black);font-size:20px">#01938540</div>
+            <div class="agent-stat-label">CA DRE License</div>
+          </div>
         </div>
         <div class="agent-socials">
           <a href="https://www.linkedin.com/in/nada-benny/" target="_blank" rel="noopener" aria-label="LinkedIn">
