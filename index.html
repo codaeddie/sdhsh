@@ -393,18 +393,62 @@
     }
     .gallery-grid-item .sold-ribbon {
       position: absolute;
-      top: 32px; right: -45px;
+      top: 0; right: 0; bottom: 0; left: 0;
       z-index: 2;
-      background: var(--color-accent-red);
-      color: white;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .gallery-grid-item .sold-ribbon::before {
+      content: 'SOLD IN 8 DAYS';
+      position: absolute;
+      top: 0; right: 0;
+      width: 150%;
+      text-align: center;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
+      font-style: italic;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      padding: 8px 60px;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      padding: 10px 0;
+      background: linear-gradient(
+        135deg,
+        #c0141a 0%,
+        #E7191F 20%,
+        #f03a3f 45%,
+        #E7191F 55%,
+        #c0141a 80%,
+        #a01015 100%
+      );
+      box-shadow:
+        0 3px 10px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        inset 0 -1px 0 rgba(0,0,0,0.15);
       transform: rotate(45deg);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transform-origin: top right;
+      /* shift so it runs corner to corner */
+      top: -5px;
+      right: -5px;
+      padding: 12px 0;
+    }
+    .gallery-grid-item .sold-ribbon::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 150%;
+      height: calc(15px + 24px + 2px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.08) 0%,
+        transparent 50%,
+        rgba(0,0,0,0.05) 100%
+      );
+      transform: rotate(45deg);
+      transform-origin: top right;
+      top: -5px;
+      right: -5px;
       pointer-events: none;
     }
 
@@ -1179,7 +1223,7 @@
           <h3 class="gallery-grid-title">Sell my home fast!</h3>
         </a>
         <a class="gallery-grid-item fade-in" href="https://www.1728bancroftst.com/" target="_blank">
-          <span class="sold-ribbon">Sold in 8 Days</span>
+          <span class="sold-ribbon"></span>
           <img src="assets/images/featured-1728-bancroft.jpg" alt="1728 Bancroft Street" loading="lazy">
           <h3 class="gallery-grid-title">1728 Bancroft Street</h3>
         </a>
