@@ -5,6 +5,10 @@
   Sections: Hero (video), Gallery Grid, Agent Bio (with inline stats),
   Newsletter Signup, Neighborhoods, Home Valuation CTA, Testimonials,
   CTA Banner, Footer, Contact Modal, Mobile Menu.
+
+  Form submissions (Newsletter, Home Valuation, Contact Modal) are sent
+  to Nada.Benny@Gmail.com via FormSubmit.co AJAX endpoint. This is a
+  temporary setup until a domain control site with analytics is built.
 -->
 <html lang="en">
 <head>
@@ -386,6 +390,22 @@
       font-size: 28px;
       font-weight: 400;
       text-align: center;
+    }
+    .gallery-grid-item .sold-ribbon {
+      position: absolute;
+      top: 20px; right: -35px;
+      z-index: 2;
+      background: var(--color-accent-red);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 40px;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      pointer-events: none;
     }
 
     /* ===== Agent / About Section ===== */
@@ -1150,17 +1170,18 @@
   <section class="gallery-grid-section" id="gallery">
     <div class="container">
       <div class="gallery-grid">
-        <a class="gallery-grid-item fade-in" href="https://www.1728bancroftst.com/" target="_blank">
-          <img src="assets/images/featured-1728-bancroft.jpg" alt="1728 Bancroft Street" loading="lazy">
-          <h3 class="gallery-grid-title">1728 Bancroft Street</h3>
+        <a class="gallery-grid-item fade-in" href="https://4847parksave.com/" target="_blank">
+          <img src="assets/images/featured-4847-parksave.jpg" alt="4847 Parks Ave #25, La Mesa" loading="lazy">
+          <h3 class="gallery-grid-title">4847 Parks Ave #25</h3>
         </a>
         <a class="gallery-grid-item fade-in" href="#valuation">
           <img src="assets/images/sell-home.jpg" alt="Sell my home fast!" loading="lazy">
           <h3 class="gallery-grid-title">Sell my home fast!</h3>
         </a>
-        <a class="gallery-grid-item fade-in" href="#cta">
-          <img src="assets/images/happy-home-hunting.jpg" alt="Happy Home Hunting!" loading="lazy">
-          <h3 class="gallery-grid-title">Happy Home Hunting!</h3>
+        <a class="gallery-grid-item fade-in" href="https://www.1728bancroftst.com/" target="_blank">
+          <span class="sold-ribbon">Sold in 8 Days</span>
+          <img src="assets/images/featured-1728-bancroft.jpg" alt="1728 Bancroft Street" loading="lazy">
+          <h3 class="gallery-grid-title">1728 Bancroft Street</h3>
         </a>
       </div>
     </div>
@@ -1219,6 +1240,7 @@
       <div class="newsletter-inner fade-in">
         <h2 style="white-space:nowrap">Your key to San Diego Real Estate</h2>
         <form class="newsletter-form" style="margin-top:32px" id="newsletter-form" onsubmit="handleFormSubmit(event, 'newsletter')">
+          <input type="hidden" name="_subject" value="SDHSH — New Newsletter Signup">
           <input type="text" name="name" placeholder="Name" required>
           <input type="email" name="email" placeholder="Email" required>
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -1309,6 +1331,7 @@
         </div>
         <div class="valuation-form-wrap">
           <form id="valuation-form" onsubmit="handleFormSubmit(event, 'valuation')">
+            <input type="hidden" name="_subject" value="SDHSH — Home Valuation Request">
             <label for="val-address">Enter your address to begin</label>
             <input type="text" id="val-address" name="address" placeholder="Type address" required>
             <label for="val-name">Your name</label>
@@ -1473,6 +1496,7 @@
       <div class="contact-modal-right">
         <h3>Send a Message</h3>
         <form id="modal-form" onsubmit="handleFormSubmit(event, 'modal')">
+          <input type="hidden" name="_subject" value="SDHSH — New Contact Message">
           <input type="text" name="name" placeholder="Full Name" required>
           <input type="email" name="email" placeholder="Email" required>
           <input type="tel" name="phone" placeholder="Phone" required>
@@ -1588,13 +1612,37 @@
       if (e.key === 'Escape') closeContactModal();
     });
 
-    /* --- Form Handling --- */
+    /* --- Form Handling ---
+       All form submissions are sent to Nada.Benny@Gmail.com via FormSubmit.co.
+       Uses the AJAX endpoint so the page doesn't redirect.
+       Each form includes a hidden _subject field for distinct email subject lines.
+       Temporary solution until a domain control site with analytics is built.
+    */
     function handleFormSubmit(e, formId) {
       e.preventDefault();
       const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
       const successEl = document.getElementById(formId + '-success');
-      form.style.display = 'none';
-      successEl.classList.add('show');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+
+      fetch('https://formsubmit.co/ajax/Nada.Benny@Gmail.com', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        form.style.display = 'none';
+        successEl.classList.add('show');
+      })
+      .catch(error => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please try again or call (619) 987-5080.');
+      });
     }
 
     /* --- Scroll Fade-in --- */
