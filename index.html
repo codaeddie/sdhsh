@@ -813,6 +813,60 @@
       margin-top: 32px;
     }
 
+    /* ===== In the News Section ===== */
+    .news-section {
+      padding: var(--section-pad-y) 0;
+      background: var(--color-beige);
+    }
+    .news-header { text-align: center; margin-bottom: 48px; }
+    .news-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .news-card-body { padding: 40px; }
+    .news-card-source {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-accent-red);
+      margin-bottom: 8px;
+    }
+    .news-card-title {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--color-navy);
+    }
+    .news-card-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--color-black);
+      margin-bottom: 16px;
+    }
+    .news-card-text:last-of-type { margin-bottom: 24px; }
+    .news-card-link {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-navy);
+      border-bottom: 2px solid var(--color-accent-red);
+      padding-bottom: 2px;
+      transition: var(--transition-fast);
+    }
+    .news-card-link:hover { color: var(--color-accent-red); }
+    @media (max-width: 768px) {
+      .news-card-body { padding: 28px; }
+      .news-card-title { font-size: 22px; }
+    }
+
     /* ===== CTA Section ===== */
     .cta-section {
       position: relative;
@@ -1444,6 +1498,25 @@
         <div class="testimonials-arrows">
           <button onclick="changeTestimonialPage(-1)" aria-label="Previous">&#8249;</button>
           <button onclick="changeTestimonialPage(1)" aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== In the News ===== -->
+  <section class="news-section" id="news">
+    <div class="container">
+      <div class="news-header fade-in">
+        <p class="pretitle">In the News</p>
+        <h2>Good Neighbor Award</h2>
+      </div>
+      <div class="news-card fade-in">
+        <div class="news-card-body">
+          <p class="news-card-source">Pacific Southwest Association of REALTORS&reg; &mdash; January 2026</p>
+          <h3 class="news-card-title">Empowering the Next Generation: Nada Benny&rsquo;s Mission to Pay it Forward</h3>
+          <p class="news-card-text">Eight years ago, Nada established the Nada Benny Scholarship at El Cajon Valley High School. What began modestly has grown into a major community resource, assisting 52 students thus far. Her goal centers on enabling young people to pursue advanced education&mdash;whether in medicine, law, engineering, or trade fields&mdash;while preserving their financial futures and homeownership possibilities.</p>
+          <p class="news-card-text">Beyond scholarships, Nada&rsquo;s commitment includes recognizing her recipients&rsquo; resilience. Many serve as translators for family members while maintaining academic excellence and participating in campus activities. Her involvement extends to collecting food and clothing for economically disadvantaged East County families.</p>
+          <a href="https://blog.psar.org/good-neighbor-nada-benny" target="_blank" rel="noopener" class="news-card-link">Read the full article &rarr;</a>
         </div>
       </div>
     </div>
