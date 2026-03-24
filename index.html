@@ -454,13 +454,14 @@
     .agent-section { padding: var(--section-pad-y) 0; }
     .agent-card {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 600px;
+      grid-template-columns: 1fr 1.5fr;
+      min-height: 480px;
       overflow: hidden;
     }
     .agent-photo-wrap {
       position: relative;
       overflow: hidden;
+      max-height: 520px;
     }
     .agent-photo-wrap::before {
       display: none;
@@ -1143,7 +1144,7 @@
       h3 { font-size: 32px; }
       .hero-title { font-size: 46px; }
       .agent-card { grid-template-columns: 1fr; }
-      .agent-photo-wrap { min-height: 500px; }
+      .agent-photo-wrap { min-height: 360px; max-height: 400px; }
       .agent-content { padding: 40px 24px; }
       .valuation-content { grid-template-columns: 1fr; gap: 32px; }
       .contact-modal-content { grid-template-columns: 1fr; }
