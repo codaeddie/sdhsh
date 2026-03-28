@@ -1811,5 +1811,56 @@
     updateHeader();
   </script>
 
+  <!-- Vercel Analytics + Speed Insights -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+
+    // Strip query params (PII protection)
+    window.va('beforeSend', function(event) {
+      var url = new URL(event.url);
+      url.search = '';
+      return Object.assign({}, event, { url: url.toString() });
+    });
+
+    // Custom event tracking via delegation
+    document.addEventListener('click', function(e) {
+      var el = e.target.closest('a, button');
+      if (!el) return;
+
+      var href = el.getAttribute('href') || '';
+      var onclick = el.getAttribute('onclick') || '';
+
+      // Contact modal opens
+      if (onclick.indexOf('openContactModal') !== -1) {
+        va('event', { name: 'contact_modal_open' });
+      }
+      // Phone clicks
+      else if (href.indexOf('tel:') === 0) {
+        va('event', { name: 'phone_click' });
+      }
+      // Email clicks
+      else if (href.indexOf('mailto:') === 0) {
+        va('event', { name: 'email_click' });
+      }
+      // Home valuation CTA
+      else if (href === '#valuation') {
+        va('event', { name: 'valuation_cta_click' });
+      }
+    });
+
+    // Track form submissions
+    document.querySelectorAll('form').forEach(function(form) {
+      form.addEventListener('submit', function() {
+        var action = form.getAttribute('action') || '';
+        if (action.indexOf('formsubmit') !== -1) {
+          va('event', { name: 'form_submit' });
+        }
+      });
+    });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
 </body>
 </html>
